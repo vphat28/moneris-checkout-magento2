@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <referenceContainer name="content">
+            <block name="moneris_checkout_config" class="Magento\Framework\View\Element\Template" template="Moneris_MonerisCheckout::config.phtml">
+                <arguments>
+                    <argument name="moneris_checkout" xsi:type="object">Moneris\MonerisCheckout\Helper\Data</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
