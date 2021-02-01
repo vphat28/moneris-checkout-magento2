@@ -859,7 +859,10 @@ class Payment extends AbstractPayment implements TransparentInterface, ConfigInt
                     $this->payment->setAdditionalInformation('receipt_id', $receipt["receipt"]["cc"]["order_no"]);
                     $this->payment->setCcTransId($receipt["receipt"]["cc"]["transaction_no"]);
                     $this->payment->setLastTransId($receipt["receipt"]["cc"]["transaction_no"]);
-                    //$this->payment->setTransactionId($receipt['receipt']['cc']['reference_no']);
+
+                    if (isset($receipt["receipt"]["cc"]['mcp'])) {
+                        $this->payment->setAdditionalInformation('mcp_info', $receipt["receipt"]["cc"]['mcp']);
+                    }
 
                     return $this;
                 } else {

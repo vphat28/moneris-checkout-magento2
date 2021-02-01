@@ -162,6 +162,11 @@ abstract class AbstractModel extends \Magento\Framework\Model\AbstractModel
         return number_format($this->amount, 2, '.', '');
     }
 
+    public function mcpformatAmount($amount)
+    {
+        return number_format($amount, 2, '.', '') * 100;
+    }
+
     /**
      * @return Payment|mixed
      */

@@ -18,12 +18,21 @@ class Refund extends Transaction
 {
     protected $_requestType = self::REFUND;
 
+    protected function calculateForeignAmount($amount, $foreign, $refundAmount)
+    {
+        $mul = bcmul($refundAmount, $foreign, 0);
+
+        return bcdiv($mul, $amount, 2);
+    }
+
     public function buildTransactionArray()
     {
         $payment = $this->getPayment();
         $order = $payment->getOrder();
+        $total = $order->getGrandTotal();
         $currencyCode = $order->getOrderCurrencyCode();
         $custId = $order->getIncrementId();
+        $mcp = $payment->getAdditionalInformation('mcp_info');
 
         if (!$payment) {
             return [];
@@ -37,6 +46,20 @@ class Refund extends Transaction
         $paymentType = $this->getHelper()->getPaymentAdditionalInfo($this->payment, 'trans_name');
         if ($paymentType && strpos($paymentType, 'idebit_purchase') !== false) {
             $requestType = "idebit_refund";
+        }
+
+        if (!empty($mcp)) {
+            $txnArray=array('type'=>'mcp_refund',
+                            'txn_number'=>$payment->getCcTransId(),
+                            'order_id'=>$monerisOrderId,
+                            'crypt_type'=> '7',
+                            'cust_id'=> $custId,
+                            'mcp_version'=> self::MCP_VERSION,
+                            'cardholder_amount'        => $this->mcpformatAmount($this->calculateForeignAmount($total, $mcp['cardholder_amount'], $this->amount)),
+                            'cardholder_currency_code' => $this->getIso4217Code($mcp['cardholder_currency_desc']),
+            );
+
+            return $txnArray;
         }
 
         return [
