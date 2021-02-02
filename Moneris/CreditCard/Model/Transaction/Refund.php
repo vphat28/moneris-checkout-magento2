@@ -20,7 +20,7 @@ class Refund extends Transaction
 
     protected function calculateForeignAmount($amount, $foreign, $refundAmount)
     {
-        $mul = bcmul($refundAmount, $foreign, 0);
+        $mul = bcmul($refundAmount, $foreign, 2);
 
         return bcdiv($mul, $amount, 2);
     }

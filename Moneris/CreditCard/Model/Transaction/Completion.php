@@ -26,7 +26,15 @@ class Completion extends Transaction
 
         $order        = $payment->getOrder();
         $currencyCode = $order->getOrderCurrencyCode();
+        $email = $order->getBillingAddress()->getEmail();
         $custId       = $order->getIncrementId();
+
+        $custId = substr(
+            $custId . '+'  . $email,
+            0,
+            31
+        );
+
 
         if ( ! $payment) {
             return [];
@@ -52,6 +60,7 @@ class Completion extends Transaction
                 'type'                     => 'mcp_completion',
                 'txn_number'               => $payment->getCcTransId(),
                 'order_id'                 => $monerisOrderId,
+                'cust_id'   => $custId,
                 'crypt_type'               => '7',
                 'mcp_version'              => self::MCP_VERSION,
                 'cardholder_amount'        => $this->mcpformatAmount($mcp['cardholder_amount']),
