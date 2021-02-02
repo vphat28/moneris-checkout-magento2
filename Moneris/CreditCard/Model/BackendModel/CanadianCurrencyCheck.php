@@ -26,7 +26,7 @@ class CanadianCurrencyCheck extends \Magento\Framework\App\Config\Value
         if ($currency != 'CAD') {
             $objectManager = ObjectManager::getInstance();
             $messageManager = $objectManager->get(\Magento\Framework\Message\ManagerInterface::class);
-            $messageManager->addWarning(__('Moneris Checkout: your currency options are not Canadian Dollar.  Please be aware that MCO and its supporting Multi-Currency Options require Canadian Dollar as the currency and using other currencies will result in unexpected charge amounts.  Please change your currency to Canadian Dollars.'));
+            $messageManager->addWarning(__('Moneris Checkout: Your currency options are not Canadian Dollar.  Please be aware that MCO and its supporting Multi-Currency Options require Canadian Dollar as the currency and using other currencies will result in unexpected charge amounts.  Please change your currency to Canadian Dollars.'));
         }
 
         return parent::afterSave();
