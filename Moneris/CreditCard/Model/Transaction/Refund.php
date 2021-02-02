@@ -33,6 +33,13 @@ class Refund extends Transaction
         $currencyCode = $order->getOrderCurrencyCode();
         $custId = $order->getIncrementId();
         $mcp = $payment->getAdditionalInformation('mcp_info');
+        $email = $order->getBillingAddress()->getEmail();
+
+        $custId = substr(
+            $custId . '+'  . $email,
+            0,
+            31
+        );
 
         if (!$payment) {
             return [];

@@ -29,7 +29,8 @@ class ReAuth extends Transaction
         $this->_requestType = $this->getUpdatedRequestType();
         $receiptId = $this->getHelper()->getPaymentAdditionalInfo($this->payment, 'receipt_id');
         $monerisOrderId = ($receiptId)? $receiptId : $payment->getLastTransId();
-        
+        $order        = $payment->getOrder();
+        $email = $order->getBillingAddress()->getEmail();
         $transactions = $this->getOrderTransactions($payment->getOrder()->getId());
         $orig_order_id = '';
         $txn_number = '';
