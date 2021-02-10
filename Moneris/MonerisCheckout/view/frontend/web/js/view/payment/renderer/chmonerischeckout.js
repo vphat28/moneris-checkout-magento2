@@ -118,6 +118,7 @@ define(
                             if (!self.processedOrder) {
                                 self.chargeRequest(data.ticket);
                             }
+                            redirectOnSuccessAction.execute();
                             self.myCheckout.closeCheckout();
                             console.log(data);
                         } else {
