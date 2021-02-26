@@ -42,7 +42,7 @@ class Info extends \Magento\Payment\Block\Info
             }
         }
 
-        $mcp = $info->getAdditionalInformation('mcp_info'); 
+        $mcp = $info->getAdditionalInformation('mcp_info');
 
         if (!empty($mcp)) {
             $specs[(string)__('Cardholder Currency')] = $mcp['cardholder_currency_desc'];

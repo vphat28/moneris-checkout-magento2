@@ -3,6 +3,5 @@ December 02 2020: Use configured order status for captured transactions
 December 08 2020: Update config code to ECNP-00494
 December 15 2020: Support custom order status
 December 16 2020: Fix empty/null order state issue
-Jan 26 2020: remove legacy js validator
-Feb 02 2021: Support Multi Currency Platform
+Jan 26 2020: remove legacy js validatorFeb 02 2021: Support Multi Currency Platform
 Feb 02 2021: Fix issue with special characters like quote, double quote, slash.

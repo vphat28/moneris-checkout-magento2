@@ -51,6 +51,9 @@ class Getticket extends Action
     /** @var \Magento\Framework\Locale\ResolverInterface */
     protected $localeResolver;
 
+    /** @var  \Magento\Catalog\Helper\Product */
+    protected $productHelper;
+
     public function __construct(
         Context $context,
         UserContextInterface $userContext,
@@ -62,6 +65,7 @@ class Getticket extends Action
         \Moneris\CreditCard\Logger\Logger $logger,
         \Magento\Framework\View\Asset\Repository $assetRepo,
         \Magento\Framework\Locale\ResolverInterface $localeResolver,
+        \Magento\Catalog\Helper\Product $productHelper,
         Image $imageHelper
     )
     {
@@ -75,6 +79,7 @@ class Getticket extends Action
         $this->assetRepo = $assetRepo;
         $this->localeResolver = $localeResolver;
         $this->imageHelper = $imageHelper;
+        $this->productHelper = $productHelper;
         parent::__construct($context);
     }
 
@@ -175,8 +180,7 @@ class Getticket extends Action
                 if (empty($product->getData('thumbnail'))) {
                     $itemDataToSend->url = $placeHolderImage;
                 } else {
-                    $this->imageHelper->setImageFile($product->getData('thumbnail'));
-                    $itemDataToSend->url = $this->imageHelper->getUrl();
+                    $itemDataToSend->url = $this->productHelper->getThumbnailUrl($product);
                 }
 
 
