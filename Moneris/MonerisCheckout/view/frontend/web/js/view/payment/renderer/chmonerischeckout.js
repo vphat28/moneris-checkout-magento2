@@ -90,7 +90,7 @@ define(
                     self.myCheckout = new monerisCheckout();
 
                     if (window.MonerisCheckoutConfig.mode == 'qa') {
-                        self.myCheckout.setMode("dev");
+                        self.myCheckout.setMode("qa");
                     } else {
                         self.myCheckout.setMode("prod");
                     }
@@ -168,6 +168,12 @@ define(
                         .fail(
                             function () {
                                 self.isPlaceOrderActionAllowed(true);
+                              try {
+
+                                self.myCheckout.closeCheckout();
+                              } catch (error) {
+                                console.error(error);
+                              }
                             }
                         ).done(
                         function () {
